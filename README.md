@@ -7,7 +7,7 @@ A read-only command line client for the [Eventbrite Platform API v3](https://www
 ```sh
 dotnet pack src/EventbriteCli -c Release
 dotnet tool install -g EventbriteCli --add-source ./nupkg
-# later: dotnet tool update -g EventbriteCli --add-source ./nupkg
+# to upgrade: bump <Version> in the csproj, then dotnet tool update -g EventbriteCli --add-source ./nupkg
 ```
 
 ## Authenticate

@@ -8,7 +8,8 @@ Read-only CLI for the Eventbrite Platform API v3, shipped as a .NET 10 global to
 dotnet build                      # warnings are errors; analyzers + code style run in build
 dotnet test                       # xunit.v3 on Microsoft.Testing.Platform (see global.json)
 dotnet run --project src/EventbriteCli -- events list
-dotnet pack src/EventbriteCli -c Release && dotnet tool update -g EventbriteCli --add-source ./nupkg
+dotnet pack src/EventbriteCli -c Release
+dotnet tool uninstall -g EventbriteCli; dotnet tool install -g EventbriteCli --add-source ./nupkg   # `update` skips same-version reinstalls
 ```
 
 ## Coding rules (non-negotiable)
