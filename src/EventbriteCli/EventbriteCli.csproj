@@ -7,7 +7,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>eventbrite</ToolCommandName>
     <PackageId>EventbriteCli</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Description>Read-only command line client for the Eventbrite Platform API v3.</Description>
     <Authors>Nicola Paro</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>

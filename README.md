@@ -56,7 +56,7 @@ Choose **one** of the options below.
 ### Option A: from the GitHub release (easiest)
 
 1. Open <https://github.com/nicolaparo/eventbrite-cli/releases/latest>.
-2. Download the file ending in **`.nupkg`** (for example `EventbriteCli.0.1.0.nupkg`) into your **Downloads** folder.
+2. Download the file ending in **`.nupkg`** (for example `EventbriteCli.0.1.1.nupkg`) into your **Downloads** folder.
 3. Run the command for your system:
 
    **Windows (PowerShell)**
@@ -95,7 +95,7 @@ dotnet tool install --global EventbriteCli --add-source ./nupkg
 eventbrite --version
 ```
 
-You should see a version number such as `0.1.0`. If you get **"command not found"** or **"not recognized"**, close and reopen the terminal. If that doesn't help, see [Troubleshooting](#troubleshooting).
+You should see a version number such as `0.1.1`. If you get **"command not found"** or **"not recognized"**, close and reopen the terminal. If that doesn't help, see [Troubleshooting](#troubleshooting).
 
 ## 3. Get your Eventbrite private token
 

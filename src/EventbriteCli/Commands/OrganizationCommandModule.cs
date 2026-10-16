@@ -8,7 +8,7 @@ internal sealed class OrganizationCommandModule(ResourceCommandFactory factory) 
 {
     private static readonly IReadOnlyList<Column> OrganizationColumns = [new("ID", "id"), new("NAME", "name"), new("VERTICAL", "vertical")];
 
-    private static readonly IReadOnlyList<Column> MemberColumns = [new("ID", "id"), new("NAME", "name"), new("EMAIL", "email")];
+    private static readonly IReadOnlyList<Column> MemberColumns = [new("USER ID", "user_id"), new("ROLE", "role_summary"), new("IMMUTABLE", "immutable")];
 
     private static readonly IReadOnlyList<Column> RoleColumns = [new("ID", "id"), new("NAME", "name")];
 
