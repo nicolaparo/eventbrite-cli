@@ -1,0 +1,13 @@
+M:System.Runtime.CompilerServices.TaskAwaiter.GetResult;Sync-over-async is forbidden: await instead
+M:System.Runtime.CompilerServices.TaskAwaiter`1.GetResult;Sync-over-async is forbidden: await instead
+M:System.Runtime.CompilerServices.ValueTaskAwaiter.GetResult;Sync-over-async is forbidden: await instead
+M:System.Runtime.CompilerServices.ValueTaskAwaiter`1.GetResult;Sync-over-async is forbidden: await instead
+M:System.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter.GetResult;Sync-over-async is forbidden: await instead
+M:System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1.ConfiguredTaskAwaiter.GetResult;Sync-over-async is forbidden: await instead
+P:System.Threading.Tasks.Task`1.Result;Sync-over-async is forbidden: await instead
+M:System.Threading.Tasks.Task.Wait;Sync-over-async is forbidden: await instead
+M:System.Threading.Tasks.Task.Wait(System.Int32);Sync-over-async is forbidden: await instead
+M:System.Threading.Tasks.Task.Wait(System.Threading.CancellationToken);Sync-over-async is forbidden: await instead
+M:System.Threading.Tasks.Task.Wait(System.TimeSpan);Sync-over-async is forbidden: await instead
+M:System.Threading.Tasks.Task.WaitAll(System.Threading.Tasks.Task[]);Sync-over-async is forbidden: use Task.WhenAll
+M:System.Threading.Tasks.Task.WaitAny(System.Threading.Tasks.Task[]);Sync-over-async is forbidden: use Task.WhenAny

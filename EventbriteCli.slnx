@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EventbriteCli/EventbriteCli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EventbriteCli.Tests/EventbriteCli.Tests.csproj" />
+  </Folder>
+</Solution>
