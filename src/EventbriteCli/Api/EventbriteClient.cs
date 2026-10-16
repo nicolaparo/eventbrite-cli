@@ -38,12 +38,16 @@ internal sealed class EventbriteClient(HttpClient httpClient) : IEventbriteClien
         {
             var page = await GetAsync(path, pageQuery, cancellationToken);
 
-            if (page.TryGetProperty(itemsProperty, out var items) && items.ValueKind == JsonValueKind.Array)
+            if (!page.TryGetProperty(itemsProperty, out var items) || items.ValueKind != JsonValueKind.Array)
             {
-                foreach (var item in items.EnumerateArray())
-                {
-                    yield return item;
-                }
+                var available = page.EnumerateObject().Select(property => property.Name).Where(name => name != "pagination");
+                throw new InvalidOperationException(
+                    $"Response of '{path}' has no '{itemsProperty}' list. Available properties: {string.Join(", ", available)}.");
+            }
+
+            foreach (var item in items.EnumerateArray())
+            {
+                yield return item;
             }
 
             var next = GetNextPageQuery(page, query);
@@ -56,11 +60,23 @@ internal sealed class EventbriteClient(HttpClient httpClient) : IEventbriteClien
         }
     }
 
+    /// <summary>
+    /// Uses <c>has_more_items</c> when present, otherwise <c>page_number &lt; page_count</c>;
+    /// prefers the <c>continuation</c> token and falls back to <c>page</c>.
+    /// </summary>
     private static QueryParameters? GetNextPageQuery(JsonElement page, QueryParameters query)
     {
-        if (!page.TryGetProperty("pagination", out var pagination)
-            || !pagination.TryGetProperty("has_more_items", out var hasMore)
-            || hasMore.ValueKind != JsonValueKind.True)
+        if (!page.TryGetProperty("pagination", out var pagination))
+        {
+            return null;
+        }
+
+        var pageNumber = GetInt32(pagination, "page_number");
+        var hasMore = pagination.TryGetProperty("has_more_items", out var hasMoreItems)
+            ? hasMoreItems.ValueKind == JsonValueKind.True
+            : pageNumber < GetInt32(pagination, "page_count");
+
+        if (!hasMore)
         {
             return null;
         }
@@ -71,10 +87,15 @@ internal sealed class EventbriteClient(HttpClient httpClient) : IEventbriteClien
             return query.With("continuation", continuation);
         }
 
-        return pagination.TryGetProperty("page_number", out var pageNumber) && pageNumber.TryGetInt32(out var number)
+        return pageNumber is { } number
             ? query.With("page", (number + 1).ToString(CultureInfo.InvariantCulture))
             : null;
     }
+
+    private static int? GetInt32(JsonElement element, string property) =>
+        element.TryGetProperty(property, out var value) && value.ValueKind == JsonValueKind.Number && value.TryGetInt32(out var number)
+            ? number
+            : null;
 
     private static async Task<JsonDocument?> ParseAsync(Stream stream, CancellationToken cancellationToken)
     {

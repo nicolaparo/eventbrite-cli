@@ -47,6 +47,22 @@ public sealed class EventbriteClientTests
     }
 
     [Fact]
+    public async Task GetPagedUsesPageCountWhenHasMoreItemsMissingAsync()
+    {
+        var (client, handler) = CreateClient();
+        handler
+            .Enqueue("""{"orders":[{"id":"1"}],"pagination":{"page_number":1,"page_count":2}}""")
+            .Enqueue("""{"orders":[{"id":"2"}],"pagination":{"page_number":2,"page_count":2}}""");
+
+        var items = await client
+            .GetPagedAsync("organizations/9/orders/", "orders", QueryParameters.Empty, TestContext.Current.CancellationToken)
+            .ToListAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, items.Count);
+        Assert.Equal(2, handler.Requests.Count);
+    }
+
+    [Fact]
     public async Task GetPagedStopsWhenLimitReachedAsync()
     {
         var (client, handler) = CreateClient();

@@ -23,7 +23,7 @@ dotnet pack src/EventbriteCli -c Release && dotnet tool update -g EventbriteCli 
 
 ## Architecture (`src/EventbriteCli`)
 
-- `Program.cs`: builds DI, then adds every `ICommandModule` to the root command.
+- `Program.cs` builds DI; `RootCommandBuilder` adds every `ICommandModule` to the root command (tests use it too: `CommandRoutingTests` asserts args → exact request URL — add a row there for every new command).
 - `Authentication/`: `ITokenStore` / `FileTokenStore` (DPAPI on Windows, a `0600` file elsewhere) and `TokenProvider` (`EVENTBRITE_TOKEN` env var first, then the store). There is intentionally no `--token` option, to keep tokens out of shell history.
 - `Api/`: `EventbriteClient` is a typed `HttpClient` returning raw `JsonElement`.
   - `GetPagedAsync` follows `pagination.continuation`, falling back to `page`.

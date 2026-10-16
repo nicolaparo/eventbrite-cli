@@ -1,3 +1,4 @@
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace EventbriteCli.Output;
@@ -8,7 +9,8 @@ namespace EventbriteCli.Output;
 /// </summary>
 internal sealed class ConsoleOutputWriter(TextWriter writer) : IOutputWriter
 {
-    private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
+    // Relaxed escaping keeps accents and HTML readable; Program sets a UTF-8 console so this survives piping.
+    private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
     public async Task WriteItemAsync(JsonElement item, IReadOnlyList<Column> columns, OutputFormat format, CancellationToken cancellationToken)
     {

@@ -43,19 +43,20 @@ internal sealed class ApiCommandModule(ResourceReader reader) : ICommandModule
     internal static string NormalizePath(string path)
     {
         var trimmed = path.Trim();
-        if (trimmed.Contains("://", StringComparison.Ordinal) || trimmed.StartsWith("//", StringComparison.Ordinal))
+        var queryIndex = trimmed.IndexOf('?', StringComparison.Ordinal);
+        var (resource, queryString) = queryIndex < 0 ? (trimmed, string.Empty) : (trimmed[..queryIndex], trimmed[queryIndex..]);
+
+        if (resource.Contains(':', StringComparison.Ordinal) || resource.StartsWith("//", StringComparison.Ordinal))
         {
             throw new InvalidOperationException("Pass a path relative to the API base address, not an absolute URL.");
         }
 
-        trimmed = trimmed.TrimStart('/');
-        if (trimmed.StartsWith("v3/", StringComparison.OrdinalIgnoreCase))
+        resource = resource.TrimStart('/');
+        if (resource.StartsWith("v3/", StringComparison.OrdinalIgnoreCase))
         {
-            trimmed = trimmed[3..];
+            resource = resource[3..];
         }
 
-        var queryIndex = trimmed.IndexOf('?', StringComparison.Ordinal);
-        var (resource, queryString) = queryIndex < 0 ? (trimmed, string.Empty) : (trimmed[..queryIndex], trimmed[queryIndex..]);
         return (resource.EndsWith('/') ? resource : resource + "/") + queryString;
     }
 
