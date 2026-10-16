@@ -481,3 +481,11 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 nupkg/
+
+# Secrets: never commit tokens or local environment files
+.env
+.env.*
+*.pfx
+*.p12
+**/eventbrite-cli/token
+.claude/settings.local.json

@@ -11,6 +11,10 @@
     <Description>Read-only command line client for the Eventbrite Platform API v3.</Description>
     <Authors>Nicola Paro</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>eventbrite;cli;dotnet-tool</PackageTags>
+    <RepositoryUrl>https://github.com/nicolaparo/eventbrite-cli</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/nicolaparo/eventbrite-cli</PackageProjectUrl>
     <PackageOutputPath>$(MSBuildThisFileDirectory)../../nupkg</PackageOutputPath>
   </PropertyGroup>
 
